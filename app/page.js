@@ -146,8 +146,6 @@ const Page = () => {
         aria-label="Add new task form"
         className="flex flex-wrap items-center gap-2"
       >
-        import React from 'react'
-        
         <input
           type="text"
           className="border-zinc-800 m-5 px-4 py-2 border-2 outline-none"
