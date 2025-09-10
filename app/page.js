@@ -9,7 +9,6 @@ const Page = () => {
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
-  div
 
   // Log mainTask after updates
   useEffect(() => {
