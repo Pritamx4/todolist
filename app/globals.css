@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+.font-asimovian {
+  font-family: 'Asimovian', sans-serif;
+}
+.font-kodemono {
+  font-family: 'Kode Mono', monospace;
+}
