@@ -115,6 +115,16 @@ const Page = () => {
       setError("");
     }
   };
+// Array of punchlines for empty task list
+  const punchlines = [
+  "No tasks yet ✨",
+  "All clear 🎉",
+  "Nothing here... 💤",
+  "You're done for now ✅",
+  "Task list is empty 🌸",
+  "No pending work 😎"
+];
+const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)];
 
   // Auto-dismiss error message after 3.5 seconds
   useEffect(() => {
@@ -139,6 +149,11 @@ const Page = () => {
           <ClipboardDocumentListIcon className="text-indigo-200 h-9 w-9 md:h-10 md:w-10 drop-shadow-lg" />
           My Todo List
         </h1>
+        <p className="mt-2 text-xl italic text-grey-500 font-kodemono md:text-xl"
+          style={{
+            letterSpacing: "0.08em",
+            textShadow: "0 2px 16px rgba(80, 0, 120, 0.18) ",
+          }}>"Turn chaos into clarity"</p>
         <div className="absolute w-24 h-2 -translate-x-1/2 bg-pink-300 rounded-full -bottom-4 left-1/2 blur-sm opacity-70"></div>
       </div>
 
@@ -200,7 +215,7 @@ const Page = () => {
           {mainTask.length === 0 ? (
             <li>
               <h2 className="py-8 text-xl font-semibold text-center font-kodemono text-zinc-500">
-                No Tasks Available
+                {randomPunchline}
               </h2>
             </li>
           ) : (
