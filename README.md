@@ -11,7 +11,7 @@
 
 **A beautiful, responsive todo list application built with Next.js and modern web technologies**
 
-[📸 Live Demo](#demo) • [🚀 Getting Started](#getting-started) • [✨ Features](#features) • [🛠️ Tech Stack](#tech-stack)
+[📸 Live Demo](#demo) • [🚀 Getting Started](#getting-started) • [🛠️ Contributing Guide](#getting-started-for-contributors) • [✨ Features](#features) • [🛠️ Tech Stack](#tech-stack)
 
 </div>
 
@@ -131,6 +131,81 @@ npm run start
 - **Custom Fonts:** Orbitron (headers), Asimovian (tasks), Kode Mono (inputs)
 - **Color Palette:** Indigo to pink gradients with modern transparency effects
 - **Icons:** Beautiful Heroicons for consistent visual language
+
+## 🛠️ Getting Started for Contributors
+
+Want to contribute and add new features? Here's your complete guide to get up and running:
+
+### 🚀 Quick Setup for Development
+
+1. **Fork & Clone the repository**
+   ```bash
+   # Fork the repo on GitHub first, then:
+   git clone https://github.com/YOUR_USERNAME/todolist.git
+   cd todolist
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # This installs all required packages including Next.js, React, TailwindCSS, and Heroicons
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   🎉 Your development server is now running at `http://localhost:3000`
+
+4. **Start coding!**
+   - Main app logic: `app/page.js`
+   - Styling: `app/globals.css` and TailwindCSS classes
+   - Layout & metadata: `app/layout.js`
+
+### 🔧 Development Workflow
+
+```bash
+# Create a new feature branch
+git checkout -b feature/your-awesome-feature
+
+# Make your changes and test them
+npm run build  # Test production build
+npm run dev    # Test in development
+
+# Commit your changes
+git add .
+git commit -m "Add awesome new feature"
+
+# Push to your fork
+git push origin feature/your-awesome-feature
+
+# Create a Pull Request on GitHub
+```
+
+### 💡 Feature Ideas to Get Started
+
+Looking for inspiration? Here are some features you could add:
+
+- 🏷️ **Task Categories/Tags** - Organize tasks by type
+- ⏰ **Due Dates** - Add deadlines to tasks  
+- 🎨 **Custom Themes** - Let users choose color schemes
+- 📱 **PWA Support** - Make it installable as a mobile app
+- 🔍 **Search & Filter** - Find tasks quickly
+- 📊 **Task Statistics** - Show productivity insights
+- 🌙 **Dark Mode** - Night-friendly interface
+- 📤 **Export/Import** - Backup and restore tasks
+
+### 🧪 Testing Your Changes
+
+```bash
+# Build the project to check for errors
+npm run build
+
+# Start production server to test
+npm run start
+```
+
+> **💡 Pro Tip:** The app uses localStorage for data persistence. Open browser DevTools > Application > Local Storage to see your task data during development.
 
 ## 🤝 Contributing
 
