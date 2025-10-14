@@ -14,10 +14,12 @@ import {
 const Page = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [time, setTime] = useState("");
   const [mainTask, setMainTask] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
+  const [editTime, setEditTime] = useState("");
   const [error, setError] = useState("");
 
   // Load tasks from localStorage on mount
@@ -41,10 +43,11 @@ const Page = () => {
     }
     setMainTask([
       ...mainTask,
-      { id: Date.now() + Math.random(), title, description, completed: false },
+      { id: Date.now() + Math.random(), title, description, time, completed: false },
     ]);
     setTitle("");
     setDescription("");
+    setTime("");
     setError("");
   };
 
@@ -61,6 +64,7 @@ const Page = () => {
     setEditId(task.id);
     setEditTitle(task.title);
     setEditDescription(task.description);
+    setEditTime(task.time);
     setError("");
   };
 
@@ -86,13 +90,14 @@ const Page = () => {
     setMainTask(
       mainTask.map((task) =>
         task.id === id
-          ? { ...task, title: editTitle, description: editDescription }
+          ? { ...task, title: editTitle, description: editDescription, time: editTime }
           : task
       )
     );
     setEditId(null);
     setEditTitle("");
     setEditDescription("");
+    setEditTime("");
     setError("");
   };
 
@@ -179,6 +184,13 @@ const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)
           aria-label="Task description"
           onChange={(e) => setDescription(e.target.value)}
         />
+        <input
+          type="time"
+          className="w-full px-4 py-3 text-indigo-700 transition-all duration-200 border-2 border-indigo-200 shadow-inner outline-none font-kodemono bg-white/90 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 placeholder:text-indigo-300 rounded-xl md:w-1/3 focus-visible:ring-4 focus-visible:ring-indigo-300"
+          value={time}
+          aria-label="Task time"
+          onChange={(e) => setTime(e.target.value)}
+        />
         <button
           className="flex items-center justify-center px-3 py-2 text-white transition-all duration-200 bg-indigo-500 rounded-full shadow-lg hover:bg-pink-400 active:scale-95 aspect-square focus-visible:ring-4 focus-visible:ring-indigo-300"
           aria-label="Add Task"
@@ -248,6 +260,13 @@ const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)
                             onChange={(e) => setEditDescription(e.target.value)}
                             placeholder="Edit description..."
                           />
+                          <input
+                            type="time"
+                            className="w-full px-4 py-2 text-indigo-700 transition-all duration-200 border-2 border-indigo-200 shadow-inner outline-none font-kodemono bg-white/90 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 placeholder:text-indigo-300 rounded-xl focus-visible:ring-4 focus-visible:ring-indigo-300"
+                            value={editTime}
+                            aria-label="Edit task time"
+                            onChange={(e) => setEditTime(e.target.value)}
+                          />
                         </>
                       ) : (
                         <>
@@ -273,6 +292,9 @@ const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)
                           </h5>
                           <p className="text-lg font-kodemono text-zinc-700">
                             {t.description}
+                          </p>
+                          <p className="text-sm font-kodemono text-pink-500">
+                            {t.time}
                           </p>
                         </>
                       )}
