@@ -21,16 +21,41 @@ const Page = () => {
   const [editDescription, setEditDescription] = useState("");
   const [editTime, setEditTime] = useState("");
   const [error, setError] = useState("");
+  
+  // Array of punchlines for empty task list
+  const punchlines = [
+    "No tasks yet ✨",
+    "All clear 🎉",
+    "Nothing here... 💤",
+    "You're done for now ✅",
+    "Task list is empty 🌸",
+    "No pending work 😎"
+  ];
+  
+  // Random punchline - calculated once and kept stable
+  const [randomPunchline] = useState(() => 
+    punchlines[Math.floor(Math.random() * punchlines.length)]
+  );
 
   // Load tasks from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem("tasks");
-    if (stored) setMainTask(JSON.parse(stored));
+    try {
+      const stored = localStorage.getItem("tasks");
+      if (stored) setMainTask(JSON.parse(stored));
+    } catch (error) {
+      console.error("Failed to load tasks from localStorage:", error);
+      setError("Failed to load saved tasks. Starting fresh.");
+    }
   }, []);
 
   // Save tasks to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(mainTask));
+    try {
+      localStorage.setItem("tasks", JSON.stringify(mainTask));
+    } catch (error) {
+      console.error("Failed to save tasks to localStorage:", error);
+      setError("Failed to save tasks. Your changes may not persist.");
+    }
   }, [mainTask]);
 
   // Add new task, prevent duplicates
@@ -72,6 +97,7 @@ const Page = () => {
     setEditId(null);
     setEditTitle("");
     setEditDescription("");
+    setEditTime("");
     setError("");
   };
 
@@ -117,20 +143,10 @@ const Page = () => {
       setEditId(null);
       setEditTitle("");
       setEditDescription("");
+      setEditTime("");
       setError("");
     }
   };
-// Array of punchlines for empty task list
-  const punchlines = [
-  "No tasks yet ✨",
-  "All clear 🎉",
-  "Nothing here... 💤",
-  "You're done for now ✅",
-  "Task list is empty 🌸",
-  "No pending work 😎"
-];
-const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)];
-
   // Auto-dismiss error message after 3.5 seconds
   useEffect(() => {
     if (error) {
@@ -154,7 +170,7 @@ const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)
           <ClipboardDocumentListIcon className="text-indigo-200 h-9 w-9 md:h-10 md:w-10 drop-shadow-lg" />
           My Todo List
         </h1>
-        <p className="mt-2 text-xl italic text-grey-500 font-kodemono md:text-xl"
+        <p className="mt-2 text-xl italic text-gray-500 font-kodemono md:text-xl"
           style={{
             letterSpacing: "0.08em",
             textShadow: "0 2px 16px rgba(80, 0, 120, 0.18) ",
