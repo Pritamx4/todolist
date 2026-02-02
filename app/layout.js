@@ -1,4 +1,5 @@
 import "./globals.css";
+import { ThemeProvider } from "./ThemeContext";
 
 export const metadata = {
   title: "Todo List",
@@ -14,7 +15,9 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

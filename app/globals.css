@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --color-*: initial;
+}
+
 .font-orbitron {
   font-family: 'Orbitron', sans-serif;
 }
