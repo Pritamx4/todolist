@@ -1,17 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import {
-  PlusCircleIcon as PlusCircleIconOutline,
-  CheckCircleIcon as CheckCircleIconOutline,
-  XCircleIcon as XCircleIconOutline,
-  ClipboardDocumentListIcon,
+  PlusIcon,
   SunIcon,
   MoonIcon,
 } from "@heroicons/react/24/outline";
-import {
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/solid";
 import { useTheme } from "./ThemeContext";
 
 const Page = () => {
@@ -124,16 +117,6 @@ const Page = () => {
       setError("");
     }
   };
-// Array of punchlines for empty task list
-  const punchlines = [
-  "No tasks yet ✨",
-  "All clear 🎉",
-  "Nothing here... 💤",
-  "You're done for now ✅",
-  "Task list is empty 🌸",
-  "No pending work 😎"
-];
-const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)];
 
   // Auto-dismiss error message after 3.5 seconds
   useEffect(() => {
@@ -144,224 +127,208 @@ const randomPunchline = punchlines[Math.floor(Math.random() * punchlines.length)
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen px-2 pt-10 bg-gradient-to-br from-indigo-200 via-slate-100 to-pink-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950">
+    <div className="flex flex-col items-center w-full min-h-screen pt-12 pb-20 bg-[#F2F2F7] dark:bg-[#000000] text-[#000000] dark:text-[#FFFFFF] transition-colors duration-300 font-sans">
+
       {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
-        className="fixed top-4 right-4 p-3 bg-white dark:bg-slate-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50 hover:scale-110 active:scale-95"
+        className="fixed top-6 right-6 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors duration-200 z-50 text-[#007AFF] dark:text-[#0A84FF]"
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       >
         {theme === 'light' ? (
-          <MoonIcon className="w-6 h-6 text-indigo-600" />
+          <MoonIcon className="w-6 h-6" />
         ) : (
-          <SunIcon className="w-6 h-6 text-yellow-400" />
+          <SunIcon className="w-6 h-6" />
         )}
       </button>
-      {/* Header */}
-      <div className="relative flex flex-col items-center w-full mb-8">
-        <h1
-          aria-label="My Todo List"
-          className="flex items-center gap-3 px-6 py-4 mx-auto text-3xl font-extrabold text-white border-4 shadow-xl font-orbitron md:text-5xl bg-gradient-to-r from-indigo-600 via-indigo-400 to-pink-400 dark:from-indigo-900 dark:via-purple-700 dark:to-pink-600 md:px-10 rounded-2xl border-white/30 dark:border-white/20"
-          style={{
-            letterSpacing: "0.08em",
-            textShadow: "0 2px 16px rgba(80, 0, 120, 0.18)",
-          }}
-        >
-          <ClipboardDocumentListIcon className="text-indigo-200 h-9 w-9 md:h-10 md:w-10 drop-shadow-lg" />
-          My Todo List
-        </h1>
-        <p className="mt-2 text-xl italic text-grey-500 dark:text-slate-300 font-kodemono md:text-xl"
-          style={{
-            letterSpacing: "0.08em",
-            textShadow: "0 2px 16px rgba(80, 0, 120, 0.18) ",
-          }}>"Turn chaos into clarity"</p>
-        <div className="absolute w-24 h-2 -translate-x-1/2 bg-pink-300 dark:bg-pink-600 rounded-full -bottom-4 left-1/2 blur-sm opacity-70"></div>
-      </div>
 
-      {/* Form */}
-      <form
-        onSubmit={submitHandler}
-        aria-label="Add new task form"
-        className="flex flex-col items-center w-full max-w-2xl gap-4 px-4 py-5 mb-4 shadow-lg md:flex-row bg-white/80 dark:bg-slate-800/80 rounded-xl md:px-6"
-      >
-        <input
-          type="text"
-          className="w-full px-4 py-3 text-indigo-700 dark:text-indigo-300 transition-all duration-200 border-2 border-indigo-200 dark:border-indigo-700 shadow-inner outline-none font-kodemono bg-white/90 dark:bg-slate-700/90 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-800 placeholder:text-indigo-300 dark:placeholder:text-indigo-500 rounded-xl md:w-1/3 focus-visible:ring-4 focus-visible:ring-indigo-300 dark:focus-visible:ring-indigo-700"
-          placeholder="Add a new task..."
-          value={title}
-          aria-label="Task title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          className="w-full px-4 py-3 text-pink-700 dark:text-pink-300 transition-all duration-200 border-2 border-pink-200 dark:border-pink-700 shadow-inner outline-none font-kodemono bg-white/90 dark:bg-slate-700/90 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 placeholder:text-pink-300 dark:placeholder:text-pink-500 rounded-xl md:w-1/2 focus-visible:ring-4 focus-visible:ring-pink-300 dark:focus-visible:ring-pink-700"
-          placeholder="Write a description..."
-          value={description}
-          aria-label="Task description"
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="time"
-          className="w-full px-4 py-3 text-indigo-700 dark:text-indigo-300 transition-all duration-200 border-2 border-indigo-200 dark:border-indigo-700 shadow-inner outline-none font-kodemono bg-white/90 dark:bg-slate-700/90 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-800 placeholder:text-indigo-300 dark:placeholder:text-indigo-500 rounded-xl md:w-1/3 focus-visible:ring-4 focus-visible:ring-indigo-300 dark:focus-visible:ring-indigo-700"
-          value={time}
-          aria-label="Task time"
-          onChange={(e) => setTime(e.target.value)}
-        />
-        <button
-          className="flex items-center justify-center px-3 py-2 text-white transition-all duration-200 bg-indigo-500 dark:bg-indigo-600 rounded-full shadow-lg hover:bg-pink-400 dark:hover:bg-pink-500 active:scale-95 aspect-square focus-visible:ring-4 focus-visible:ring-indigo-300 dark:focus-visible:ring-indigo-700"
-          aria-label="Add Task"
-          type="submit"
-        >
-          <PlusCircleIconOutline className="w-6 h-6" />
-        </button>
-      </form>
-      {error && (
-        <div className="flex items-center gap-2 px-4 py-2 mb-2 text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded shadow font-kodemono">
-          <span>{error}</span>
-          <button
-            onClick={() => setError("")}
-            className="ml-2 text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none"
-            aria-label="Dismiss error"
-            title="Dismiss"
-          >
-            <XCircleIconOutline className="w-5 h-5" />
-          </button>
+      {/* Main Container */}
+      <div className="w-full max-w-3xl px-4 md:px-8">
+
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold tracking-tight text-left">
+            Reminders
+          </h1>
         </div>
-      )}
-      {mainTask.length > 0 && (
-        <button
-          onClick={clearAllHandler}
-          className="px-4 py-2 mb-4 text-white transition-all duration-200 bg-red-400 dark:bg-red-600 shadow hover:bg-red-500 dark:hover:bg-red-700 font-kodemono rounded-xl"
-        >
-          Clear All Tasks
-        </button>
-      )}
 
-      {/* Task List */}
-      <div className="w-full max-w-2xl p-4 shadow-lg bg-white/80 dark:bg-slate-800/80 rounded-xl">
-        <ul>
-          {mainTask.length === 0 ? (
-            <li>
-              <h2 className="py-8 text-xl font-semibold text-center font-kodemono text-zinc-500 dark:text-slate-400">
-                {randomPunchline}
-              </h2>
-            </li>
-          ) : (
-            mainTask.map((t, idx) => {
-              const isEditing = editId === t.id;
-              return (
-                <React.Fragment key={t.id}>
-                  <li
-                    className={`flex flex-col md:flex-row items-start md:items-center justify-between mb-6 p-4 rounded-xl bg-gradient-to-r from-indigo-100 to-pink-100 dark:from-slate-700 dark:to-indigo-900 shadow hover:shadow-2xl hover:scale-[1.025] transition-all duration-200 group ${
-                      t.completed ? "opacity-60 line-through" : ""
-                    }`}
-                  >
-                    <div className="flex flex-col flex-1 gap-2">
-                      {isEditing ? (
-                        <>
-                          <input
-                            type="text"
-                            autoFocus
-                            className="w-full px-4 py-2 mb-2 text-indigo-700 dark:text-indigo-300 transition-all duration-200 border-2 border-indigo-200 dark:border-indigo-700 shadow-inner outline-none font-kodemono bg-white/90 dark:bg-slate-700/90 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-800 placeholder:text-indigo-300 dark:placeholder:text-indigo-500 rounded-xl focus-visible:ring-4 focus-visible:ring-indigo-300 dark:focus-visible:ring-indigo-700"
-                            value={editTitle}
-                            aria-label="Edit task title"
-                            onChange={(e) => setEditTitle(e.target.value)}
-                            placeholder="Edit title..."
-                          />
-                          <input
-                            type="text"
-                            className="w-full px-4 py-2 text-pink-700 dark:text-pink-300 transition-all duration-200 border-2 border-pink-200 dark:border-pink-700 shadow-inner outline-none font-kodemono bg-white/90 dark:bg-slate-700/90 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 placeholder:text-pink-300 dark:placeholder:text-pink-500 rounded-xl focus-visible:ring-4 focus-visible:ring-pink-300 dark:focus-visible:ring-pink-700"
-                            value={editDescription}
-                            aria-label="Edit task description"
-                            onChange={(e) => setEditDescription(e.target.value)}
-                            placeholder="Edit description..."
-                          />
-                          <input
-                            type="time"
-                            className="w-full px-4 py-2 text-indigo-700 dark:text-indigo-300 transition-all duration-200 border-2 border-indigo-200 dark:border-indigo-700 shadow-inner outline-none font-kodemono bg-white/90 dark:bg-slate-700/90 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-800 placeholder:text-indigo-300 dark:placeholder:text-indigo-500 rounded-xl focus-visible:ring-4 focus-visible:ring-indigo-300 dark:focus-visible:ring-indigo-700"
-                            value={editTime}
-                            aria-label="Edit task time"
-                            onChange={(e) => setEditTime(e.target.value)}
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <h5 className="flex items-center gap-2 text-2xl font-semibold text-indigo-700 dark:text-indigo-300 font-asimovian">
-                            {t.title}
-                            {/* Mark as completed button (right of title) */}
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 p-3 text-sm text-red-600 bg-red-100 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        {/* Task List Container */}
+        <div className="bg-white dark:bg-[#1C1C1E] rounded-2xl shadow-sm overflow-hidden mb-6">
+          <ul className="divide-y divide-gray-100 dark:divide-neutral-800">
+            {mainTask.length === 0 ? (
+              <li className="p-6 text-center text-gray-500 dark:text-neutral-400">
+                No reminders
+              </li>
+            ) : (
+              mainTask.map((t) => {
+                const isEditing = editId === t.id;
+                return (
+                  <li key={t.id} className="p-4 pl-14 relative group hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors duration-150">
+
+                    {/* Toggle Circle */}
+                    {!isEditing && (
+                      <button
+                        onClick={() => toggleComplete(t.id)}
+                        className="absolute left-4 top-5 w-6 h-6 rounded-full border-[1.5px] border-gray-300 dark:border-neutral-600 flex items-center justify-center focus:outline-none"
+                        aria-label={t.completed ? "Mark as not completed" : "Mark as completed"}
+                      >
+                        {t.completed && (
+                          <div className="w-3.5 h-3.5 rounded-full bg-[#007AFF] dark:bg-[#0A84FF]" />
+                        )}
+                      </button>
+                    )}
+
+                    <div className="flex justify-between items-start">
+                      {/* Content */}
+                      <div className="flex-1 pr-4">
+                        {isEditing ? (
+                          <div className="flex flex-col gap-2">
+                            <input
+                              type="text"
+                              autoFocus
+                              className="w-full bg-transparent border-b border-gray-200 dark:border-neutral-700 outline-none pb-1 text-lg"
+                              value={editTitle}
+                              onChange={(e) => setEditTitle(e.target.value)}
+                              placeholder="Title"
+                            />
+                            <input
+                              type="text"
+                              className="w-full bg-transparent border-b border-gray-200 dark:border-neutral-700 outline-none pb-1 text-sm text-gray-500"
+                              value={editDescription}
+                              onChange={(e) => setEditDescription(e.target.value)}
+                              placeholder="Notes"
+                            />
+                            <input
+                              type="time"
+                              className="w-full bg-transparent outline-none text-sm text-gray-500"
+                              value={editTime}
+                              onChange={(e) => setEditTime(e.target.value)}
+                            />
+                          </div>
+                        ) : (
+                          <div className={t.completed ? "opacity-50" : ""}>
+                            <h3 className={`text-lg leading-tight ${t.completed ? "text-gray-500 line-through" : ""}`}>
+                              {t.title}
+                            </h3>
+                            {t.description && (
+                              <p className="text-sm text-gray-500 dark:text-neutral-400 mt-1">
+                                {t.description}
+                              </p>
+                            )}
+                            {t.time && (
+                              <p className="text-sm text-gray-400 dark:text-neutral-500 mt-1">
+                                {t.time}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        {isEditing ? (
+                          <>
                             <button
-                              onClick={() => toggleComplete(t.id)}
-                              className={`ml-2 transition-all duration-200 rounded-full border-2 ${
-                                t.completed
-                                  ? "bg-green-400 border-green-500 text-white"
-                                  : "bg-white dark:bg-slate-600 border-indigo-300 dark:border-indigo-600 text-indigo-400 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-800"
-                              } p-1 shadow focus-visible:ring-2 focus-visible:ring-green-300 dark:focus-visible:ring-green-700`}
-                              aria-label={t.completed ? "Mark as not completed" : "Mark as completed"}
-                              title={t.completed ? "Mark as not completed" : "Mark as completed"}
+                              onClick={() => saveEditHandler(t.id)}
+                              className="text-sm text-[#007AFF] dark:text-[#0A84FF] font-medium"
                             >
-                              <CheckCircleIconOutline
-                                className={`h-6 w-6 ${
-                                  t.completed ? "text-white" : "text-indigo-400 dark:text-indigo-300"
-                                }`}
-                              />
+                              Done
                             </button>
-                          </h5>
-                          <p className="text-lg font-kodemono text-zinc-700 dark:text-slate-300">
-                            {t.description}
-                          </p>
-                          <p className="text-sm font-kodemono text-pink-500 dark:text-pink-400">
-                            {t.time}
-                          </p>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex gap-2 mt-4 md:mt-0 md:ml-4">
-                      {isEditing ? (
-                        <>
-                          <button
-                            onClick={() => saveEditHandler(t.id)}
-                            className="bg-green-500 dark:bg-green-600 hover:bg-emerald-500 dark:hover:bg-emerald-600 active:scale-95 text-white px-2.5 py-2 rounded-full shadow-md transition-all duration-200 flex items-center justify-center aspect-square focus-visible:ring-4 focus-visible:ring-green-300 dark:focus-visible:ring-green-700"
-                            aria-label={`Save edit for task: ${t.title}`}
-                          >
-                            <CheckCircleIconOutline className="w-5 h-5" />
-                          </button>
-                          <button
-                            onClick={cancelEditHandler}
-                            className="bg-gray-400 dark:bg-gray-600 hover:bg-zinc-400 dark:hover:bg-zinc-500 active:scale-95 text-white px-2.5 py-2 rounded-full shadow-md transition-all duration-200 flex items-center justify-center aspect-square focus-visible:ring-4 focus-visible:ring-gray-300 dark:focus-visible:ring-gray-600"
-                            aria-label={`Cancel edit for task: ${t.title}`}
-                          >
-                            <XCircleIconOutline className="w-5 h-5" />
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            onClick={() => startEditHandler(t)}
-                            className="bg-blue-500 dark:bg-blue-600 hover:bg-indigo-500 dark:hover:bg-indigo-600 active:scale-95 text-white px-2.5 py-2 rounded-full shadow-md transition-all duration-200 flex items-center justify-center aspect-square focus-visible:ring-4 focus-visible:ring-blue-300 dark:focus-visible:ring-blue-700"
-                            aria-label={`Edit task: ${t.title}`}
-                          >
-                            <PencilSquareIcon className="w-5 h-5" />
-                          </button>
-                          <button
-                            onClick={() => deleteHandler(t.id)}
-                            className="bg-red-500 dark:bg-red-600 hover:bg-pink-500 dark:hover:bg-pink-600 active:scale-95 text-white px-2.5 py-2 rounded-full shadow-md transition-all duration-200 flex items-center justify-center aspect-square focus-visible:ring-4 focus-visible:ring-red-300 dark:focus-visible:ring-red-700"
-                            aria-label={`Delete task: ${t.title}`}
-                          >
-                            <TrashIcon className="w-5 h-5" />
-                          </button>
-                        </>
-                      )}
+                            <button
+                              onClick={cancelEditHandler}
+                              className="text-sm text-gray-500"
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => startEditHandler(t)}
+                              className="text-sm text-[#007AFF] dark:text-[#0A84FF]"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => deleteHandler(t.id)}
+                              className="text-sm text-red-500"
+                            >
+                              Delete
+                            </button>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </li>
-                  {/* Divider except after last item */}
-                  {idx !== mainTask.length - 1 && (
-                    <div className="w-full h-[1px] bg-gradient-to-r from-indigo-200 via-pink-200 to-transparent dark:from-indigo-800 dark:via-pink-800 my-2 opacity-60" />
-                  )}
-                </React.Fragment>
-              );
-            })
-          )}
-        </ul>
+                );
+              })
+            )}
+          </ul>
+        </div>
+
+        {/* Input Form */}
+        <form
+          onSubmit={submitHandler}
+          className="bg-white dark:bg-[#1C1C1E] rounded-2xl shadow-sm p-4 flex flex-col gap-3"
+        >
+          <div className="flex items-center gap-3">
+             <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center text-gray-400">
+                <PlusIcon className="w-5 h-5" />
+             </div>
+            <input
+              type="text"
+              className="w-full bg-transparent outline-none text-lg placeholder-gray-400 dark:placeholder-neutral-500"
+              placeholder="New Reminder"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="pl-9 flex flex-col md:flex-row gap-3">
+             <input
+              type="text"
+              className="w-full bg-transparent outline-none text-sm text-gray-500 placeholder-gray-400 dark:placeholder-neutral-600 border-b border-gray-100 dark:border-neutral-800 pb-2 md:border-none md:pb-0"
+              placeholder="Notes"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+              type="time"
+              className="w-full md:w-32 bg-transparent outline-none text-sm text-gray-500"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+            />
+          </div>
+
+          <div className="flex justify-end pt-2">
+            <button
+              type="submit"
+              disabled={!title.trim()}
+              className="text-[#007AFF] dark:text-[#0A84FF] font-medium disabled:opacity-50"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+
+        {/* Clear all button */}
+        {mainTask.length > 0 && (
+          <div className="flex justify-center mt-8">
+             <button
+              onClick={clearAllHandler}
+              className="text-sm text-red-500 hover:underline"
+            >
+              Clear Completed Reminders
+            </button>
+          </div>
+        )}
+
       </div>
     </div>
   );
